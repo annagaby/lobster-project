@@ -1,0 +1,35 @@
+---
+title: "lobster-project"
+author: "Anna Calle"
+date: "11/12/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+# Load packages and read .csv files
+install.packages("vcdExtra")
+library(tidyverse)
+library(vcdExtra)
+
+size_abundance <- read_csv("lobster_size_abundance.csv")
+traps <- read_csv("lobster_traps.csv")
+
+```
+
+```{r}
+# Get data into tidy format
+
+
+```
+
+
+
+
+
+
+
+
