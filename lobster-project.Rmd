@@ -20,9 +20,21 @@ traps <- read_csv("lobster_traps.csv")
 
 ```
 
-```{r}
-# Get data into tidy format
+### 1. Lobster abundance and fishing pressure (2012 - 2017)
 
+```{r}
+
+  
+```
+
+
+### 2. Compare mean lobster size by site in 2017
+
+```{r}
+# Transform data into case form
+
+size_abundance <- data.frame(size_abundance)
+size_abun_case <- expand.dft(size_abundance, freq = "COUNT")
 
 ```
 
