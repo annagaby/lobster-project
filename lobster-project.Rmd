@@ -9,7 +9,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r}
+```{r, message=FALSE}
 # Load packages and read .csv files
 install.packages("vcdExtra")
 library(tidyverse)
@@ -18,9 +18,12 @@ library(vcdExtra)
 size_abundance <- read_csv("lobster_size_abundance.csv")
 traps <- read_csv("lobster_traps.csv")
 
+#You will be describing lobster size, abundance and fishing pressure at five Long-Term Ecological Research (LTER) Sites in the Santa Barbara Channel close to the mainland: Arroyo Quemado (AQUE), Naples Reef (NAPL), Mohawk Reef (MOHK), Isla Vista (IVEE), Carpinteria (CARP).
 ```
 
 ### 1. Lobster abundance and fishing pressure (2012 - 2017)
+Describe trends in lobster abundance (counts) and fishing pressure (trap buoys) at the five locations from 2012 - 2017. Ignore transect information - we are only interested in evaluating abundance and pressure on the
+order of SITE. Note: you are not expected to use regression here - just think of ways to clearly describe annual totals visually and in text, noting important trends, events and differences.
 
 ```{r}
 
@@ -29,7 +32,8 @@ traps <- read_csv("lobster_traps.csv")
 
 
 ### 2. Compare mean lobster size by site in 2017
-
+Compare mean lobster sizes (carapace length (mm)) across the five sites for lobster observations collected in 2017. Warning: the size data are not in tidy format. There are rows that contain size information for multiple
+lobsters observed (e.g., if the researcher saw 3 lobsters all with carapace length ~ 60 mm, then they will have a single row where COUNT = 3 and SIZE = 60). You’ll want to get this into case format - where each lobster has its own row - before doing statistical analyses. There are many ways to do this. One hint: function expand.dft in the vcdExtra package (it doesn’t like tibbles, so you might need to coerce to data.frame first).
 ```{r}
 # Transform data into case form
 
@@ -39,9 +43,10 @@ size_abun_case <- expand.dft(size_abundance, freq = "COUNT")
 ```
 
 
+### 3. Changes in lobster size at MPA and non-MPA sites (comparing only 2012 and 2017 sizes)
+At Isla Vista and Naples Reef, the two protected MPA sites (with zero fishing pressure), how do lobster sizes in 2012 and 2017 compare? At the non-MPA sites?
 
 
-
-
-
+### 4. Proportions of “legal” lobsters at the 5 sites in 2017
+The legal minimum carapace size for lobster is 82.6 mm. What proportion of observed lobsters at each site are above the legal minimum? Does that proportion differ significantly across the 5 sites? 
 
