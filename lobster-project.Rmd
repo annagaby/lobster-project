@@ -170,6 +170,7 @@ minimum_carapace <- mean_sizes %>%
 rownames(minimum_carapace) <- c("AQUE", "CARP","IVEE","MOHK","NAPL")
 minimum_carapace
 
+
 ```
 ```{r}
 # Actual proportions:
