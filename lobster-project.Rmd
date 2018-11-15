@@ -11,7 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r, message=FALSE}
 # Load packages and read .csv files
-install.packages("vcdExtra")
+#install.packages("vcdExtra")
 library(tidyverse)
 library(vcdExtra)
 library(car)
@@ -119,6 +119,12 @@ lobster_ph
 
 ### 3. Changes in lobster size at MPA and non-MPA sites (comparing only 2012 and 2017 sizes)
 At Isla Vista and Naples Reef, the two protected MPA sites (with zero fishing pressure), how do lobster sizes in 2012 and 2017 compare? At the non-MPA sites?
+```{r}
+#two years (2012 and 2017)
+#two managment levels 
+
+```
+
 
 
 ### 4. Proportions of “legal” lobsters at the 5 sites in 2017
