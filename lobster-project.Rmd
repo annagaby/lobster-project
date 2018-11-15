@@ -48,12 +48,14 @@ final_table_lobsters <- kable(abundance_table, col.names = c("Year", "Arroyo Que
   column_spec(1, bold = T) %>% 
   row_spec(0, bold = T, color = "black")
 
-final_table_lobsters
+final_table_lobsters #finalized table
 
 #create table of trap buoy counts by site and year 
 
 traps <- data.frame(traps)
-traps_case <- expand.dft(traps, freq = "TRAPS")
+
+traps_case <- expand.dft(traps, freq = "TRAPS") %>%   
+  filter(SITE != "ABUR", SITE != "AHND", SITE != "AHND to AQUE", SITE != "GOLB")
 
 traps_table <-traps_case %>% 
   count(YEAR, SITE) %>% 
@@ -61,11 +63,6 @@ traps_table <-traps_case %>%
 
 traps_table
 
-final_traps_table <- kable(traps_table, col.names = c("Year", "Arroyo Quemado", "Carpinteria", "Isla Vista", "Mohawk Reef", "Naples Reef"), align = "c") %>% 
-   kable_styling(bootstrap_options = "striped", full_width = F) %>% 
-  kable_styling(bootstrap_options = "hover") %>% 
-  column_spec(1, bold = T) %>% 
-  row_spec(0, bold = T, color = "black")
   
 ```
 
