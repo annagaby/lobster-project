@@ -34,7 +34,7 @@ order of SITE. Note: you are not expected to use regression here - just think of
 size_abundance <- data.frame(size_abundance)
 size_abun_case <- expand.dft(size_abundance, freq = "COUNT")
 
-#create table of lobster abundance by site and year
+#create table and graph of lobster abundance by site and year
 
 abundance_table <- size_abun_case %>% 
   count(YEAR, SITE) %>% 
@@ -50,19 +50,26 @@ final_table_lobsters <- kable(abundance_table, col.names = c("Year", "Arroyo Que
 
 final_table_lobsters #finalized table
 
-#create table of trap buoy counts by site and year 
+#create table and graph of trap buoy counts by site and year 
 
 traps <- data.frame(traps)
 
 traps_case <- expand.dft(traps, freq = "TRAPS") %>%   
   filter(SITE != "ABUR", SITE != "AHND", SITE != "AHND to AQUE", SITE != "GOLB")
 
-traps_table <-traps_case %>% 
+traps_table <-traps_case %>% # Kirby there are no columns for Isla Vista or Naples reef because the trap counts were 0 in the original traps datset. Need to add column in table/add data into graphs 
   count(YEAR, SITE) %>% 
   spread(SITE, n)
 
 traps_table
 
+final_traps_table <- kable(traps_table, col.names = c("Year", "Arroyo Quemado", "Carpinteria", "Mohawk Reef"), align = "c") %>% 
+   kable_styling(bootstrap_options = "striped", full_width = F) %>% 
+  kable_styling(bootstrap_options = "hover") %>% 
+  column_spec(1, bold = T) %>% 
+  row_spec(0, bold = T, color = "black")
+
+final_traps_table
   
 ```
 
@@ -76,8 +83,7 @@ lobsters observed (e.g., if the researcher saw 3 lobsters all with carapace leng
 #Create dataframe with only 2017 observations to run ANOVA
 
 mean_sizes <- size_abun_case %>% 
-  filter(YEAR == 2017)
-
+  filter(YEAR == 2017) 
 
 #Use Levene's test for equal variances 
 
@@ -88,28 +94,24 @@ lobster_variance <- leveneTest(SIZE ~ SITE, data = mean_sizes)
 
 lobster_variance
 
-#ANOVA test 
-
-#H0: There is no difference in mean lobster sizes across different sites
-#HA: At least two sites have significantly different means
-
-lobster_aov <- aov(SIZE ~SITE, data = mean_sizes)
-summary(lobster_aov)
-
-#Kruskal- Wallis test for non-parametic data
+#Kruskal- Wallis test for non-parametic data, because variances are not equal
 
 #H0: There is no significant difference in mean lobster sizes across different sites
 #HA: At least two sites have signficantly different means
 
 
-# ANOVA eveals tht there are at least two means that are significantly different, therefore, we should run Tukey's HSD to explore further (post hoc test)
+lobster_aov <- aov(SIZE ~SITE, data = mean_sizes, variance = FALSE)
+summary(lobster_aov)
+
+
+# Kruskal-Wallis reveals that there are at least two means that are significantly different, therefore, we should run Tukey's HSD to explore further (post hoc test)
 
 lobster_ph <- TukeyHSD(lobster_aov)
 
 lobster_ph
 
 
-# Mean lobster sizes differ significantly between NAPL and CARP, NAPL and IVEE, NAPL and MOHK (p < 0,05)   
+# Mean lobster sizes differ significantly between Naples Reef (NAPL) and Carpinteria (CARP) (p = 0.023), Naples Reef (NAPL) and Isla Vista (IVEE) (0.004), Naples Reef (NAPL) and Mohawk Reef (MOHK) (p = 0.057).    
 
 
 ```
