@@ -127,7 +127,7 @@ lobster_variance
 #HA: At least two sites have signficantly different means
 
 
-lobster_aov <- aov(SIZE ~SITE, data = mean_sizes, variance = FALSE)
+lobster_aov <- aov(SIZE ~SITE, data = mean_sizes)
 summary(lobster_aov)
 
 
@@ -147,10 +147,14 @@ lobster_ph
 ### 3. Changes in lobster size at MPA and non-MPA sites (comparing only 2012 and 2017 sizes)
 At Isla Vista and Naples Reef, the two protected MPA sites (with zero fishing pressure), how do lobster sizes in 2012 and 2017 compare? At the non-MPA sites?
 ```{r}
+
 #two years (2012 and 2017)
 #two managment levels 
 
 #5 separate t-tests (unpaired) between 2012 and 2017 at each site. No t tests between sites. That will be in our analysis 
+
+
+#First look at the three non MPA sites######################
 
 #Site 1: AQUE (Arroyo Quemado)
 
@@ -174,34 +178,10 @@ AQUE_ttest <- t.test(AQUE_2012$SIZE, AQUE_2017$SIZE, var.equal = TRUE)
   
 AQUE_ttest
 
-#Our two sample t-test indicates that there is no significant difference in lobster size at Arroyo Quemado (p=0.209) in 2012 (mean = 71) and 2017 (mean = 73.89) 
-
-#Site 2: Naples Reef (NAPL) 
-
-NAPL_2017 <- size_abun_case %>% 
-  filter(YEAR == 2017, SITE == "NAPL")
-
-NAPL_2012 <- size_abun_case %>% 
-  filter(YEAR == 2012, SITE == "NAPL")
-
-#ftest to compare variances in lobster size at NAPL in 2012 and 2017 
-# null: Variances are equal (ratio is equal to 1)
-# alternative: Variances are not equal (ratio is not equal to 1)
-
-NAPL_ftest <- var.test(NAPL_2012$SIZE, NAPL_2017$SIZE)
-
-NAPL_ftest
-
-#ftest indicates that variances are equal (p =0.76). Use students t-test to compare sizes at NAPL in 2012 and 2017
-
-NAPL_ttest <- t.test(NAPL_2012$SIZE, NAPL_2017$SIZE, var.equal = TRUE)
-  
-NAPL_ttest
-
-#Our two sample t-test indicates that there is no significant difference in lobster size at Naples Reef (p=0.5002) in 2012 (mean = 73) and 2017 (mean = 76.23) 
+#####Our two sample t-test indicates that there is no significant difference in lobster size at Arroyo Quemado (p=0.209) in 2012 (mean = 71) and 2017 (mean = 73.89) ##################
 
 
-#Site 3: MOHK (Mohawk Reef)
+#Site 2: MOHK (Mohawk Reef)
 
 MOHK_2017 <- size_abun_case %>% 
   filter(YEAR == 2017, SITE == "MOHK")
@@ -223,8 +203,33 @@ MOHK_ttest <- t.test(MOHK_2012$SIZE, MOHK_2017$SIZE, var.equal = TRUE)
   
 MOHK_ttest
 
-#Our two sample t-test indicates that there is a significant difference in lobster size at Mohwak Reef (p=0.000067) in 2012 (mean = 77) and 2017 (mean = 72) 
+#################Our two sample t-test indicates that there is a significant difference in lobster size at Mohwak Reef (p=0.000067) in 2012 (mean = 77) and 2017 (mean = 72) #####################
 
+#Site 3: CARP (Carpinteria)
+
+CARP_2017 <- size_abun_case %>% 
+  filter(YEAR == 2017, SITE == "CARP")
+
+CARP_2012 <- size_abun_case %>% 
+  filter(YEAR == 2012, SITE == "CARP")
+
+#ftest to compare variances in lobster size at NAPL in 2012 and 2017 
+# null: Variances are equal (ratio is equal to 1)
+# alternative: Variances are not equal (ratio is not equal to 1)
+
+CARP_ftest <- var.test(CARP_2012$SIZE, CARP_2017$SIZE)
+
+CARP_ftest
+
+#ftest indicates that variances are equal (p =0.204). Use students t-test to compare sizes at NAPL in 2012 and 2017
+
+CARP_ttest <- t.test(CARP_2012$SIZE, CARP_2017$SIZE, var.equal = TRUE)
+  
+CARP_ttest
+
+####################Our two sample t-test indicates that there is no significant difference in lobster size at Isla Vista (p=0.182) in 2012 (mean = 74.35) and 2017 (mean = 72.29) ############
+
+# MPA sites######################
 
 #Site 4: Isla Vista (IVEE) 
 
@@ -250,30 +255,31 @@ IVEE_ttest
 
 #Our two sample t-test indicates that there is no significant difference in lobster size at Isla Vista (p=0.059) in 2012 (mean = 66.07) and 2017 (mean = 71.4) 
 
+#Site 5: Naples Reef (NAPL) 
 
-#Site 5: CARP (Carpinteria)
+NAPL_2017 <- size_abun_case %>% 
+  filter(YEAR == 2017, SITE == "NAPL")
 
-CARP_2017 <- size_abun_case %>% 
-  filter(YEAR == 2017, SITE == "CARP")
-
-CARP_2012 <- size_abun_case %>% 
-  filter(YEAR == 2012, SITE == "CARP")
+NAPL_2012 <- size_abun_case %>% 
+  filter(YEAR == 2012, SITE == "NAPL")
 
 #ftest to compare variances in lobster size at NAPL in 2012 and 2017 
 # null: Variances are equal (ratio is equal to 1)
 # alternative: Variances are not equal (ratio is not equal to 1)
 
-CARP_ftest <- var.test(CARP_2012$SIZE, CARP_2017$SIZE)
+NAPL_ftest <- var.test(NAPL_2012$SIZE, NAPL_2017$SIZE)
 
-CARP_ftest
+NAPL_ftest
 
-#ftest indicates that variances are equal (p =0.204). Use students t-test to compare sizes at NAPL in 2012 and 2017
+#ftest indicates that variances are equal (p =0.76). Use students t-test to compare sizes at NAPL in 2012 and 2017
 
-CARP_ttest <- t.test(CARP_2012$SIZE, CARP_2017$SIZE, var.equal = TRUE)
+NAPL_ttest <- t.test(NAPL_2012$SIZE, NAPL_2017$SIZE, var.equal = TRUE)
   
-CARP_ttest
+NAPL_ttest
 
-#Our two sample t-test indicates that there is no significant difference in lobster size at Isla Vista (p=0.182) in 2012 (mean = 74.35) and 2017 (mean = 72.29) 
+#Our two sample t-test indicates that there is no significant difference in lobster size at Naples Reef (p=0.5002) in 2012 (mean = 73) and 2017 (mean = 76.23) 
+
+
 
 ```
 
