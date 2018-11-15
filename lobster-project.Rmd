@@ -152,6 +152,129 @@ At Isla Vista and Naples Reef, the two protected MPA sites (with zero fishing pr
 
 #5 separate t-tests (unpaired) between 2012 and 2017 at each site. No t tests between sites. That will be in our analysis 
 
+#Site 1: AQUE (Arroyo Quemado)
+
+AQUE_2017 <- size_abun_case %>% 
+  filter(YEAR == 2017, SITE == "AQUE")
+
+AQUE_2012 <- size_abun_case %>% 
+  filter(YEAR == 2012, SITE == "AQUE")
+
+#ftest to compare variances at AQUE in 2012 and 2017 
+# null: Variances are equal (ratio is equal to 1)
+# alternative: Variances are not equal (ratio is not equal to 1)
+
+AQUE_ftest <- var.test(AQUE_2012$SIZE, AQUE_2017$SIZE)
+
+AQUE_ftest
+
+#ftest indicates that variances are equal (p =0.29). Use students t-test to compare sizes at AQUE in 2012 and 2017
+
+AQUE_ttest <- t.test(AQUE_2012$SIZE, AQUE_2017$SIZE, var.equal = TRUE)
+  
+AQUE_ttest
+
+#Our two sample t-test indicates that there is no significant difference in lobster size at Arroyo Quemado (p=0.209) in 2012 (mean = 71) and 2017 (mean = 73.89) 
+
+#Site 2: Naples Reef (NAPL) 
+
+NAPL_2017 <- size_abun_case %>% 
+  filter(YEAR == 2017, SITE == "NAPL")
+
+NAPL_2012 <- size_abun_case %>% 
+  filter(YEAR == 2012, SITE == "NAPL")
+
+#ftest to compare variances in lobster size at NAPL in 2012 and 2017 
+# null: Variances are equal (ratio is equal to 1)
+# alternative: Variances are not equal (ratio is not equal to 1)
+
+NAPL_ftest <- var.test(NAPL_2012$SIZE, NAPL_2017$SIZE)
+
+NAPL_ftest
+
+#ftest indicates that variances are equal (p =0.76). Use students t-test to compare sizes at NAPL in 2012 and 2017
+
+NAPL_ttest <- t.test(NAPL_2012$SIZE, NAPL_2017$SIZE, var.equal = TRUE)
+  
+NAPL_ttest
+
+#Our two sample t-test indicates that there is no significant difference in lobster size at Naples Reef (p=0.5002) in 2012 (mean = 73) and 2017 (mean = 76.23) 
+
+
+#Site 3: MOHK (Mohawk Reef)
+
+MOHK_2017 <- size_abun_case %>% 
+  filter(YEAR == 2017, SITE == "MOHK")
+
+MOHK_2012 <- size_abun_case %>% 
+  filter(YEAR == 2012, SITE == "MOHK")
+
+#ftest to compare variances in lobster size at NAPL in 2012 and 2017 
+# null: Variances are equal (ratio is equal to 1)
+# alternative: Variances are not equal (ratio is not equal to 1)
+
+MOHK_ftest <- var.test(MOHK_2012$SIZE, MOHK_2017$SIZE)
+
+MOHK_ftest
+
+#ftest indicates that variances are equal (p =0.15). Use students t-test to compare sizes at NAPL in 2012 and 2017
+
+MOHK_ttest <- t.test(MOHK_2012$SIZE, MOHK_2017$SIZE, var.equal = TRUE)
+  
+MOHK_ttest
+
+#Our two sample t-test indicates that there is a significant difference in lobster size at Mohwak Reef (p=0.000067) in 2012 (mean = 77) and 2017 (mean = 72) 
+
+
+#Site 4: Isla Vista (IVEE) 
+
+IVEE_2017 <- size_abun_case %>% 
+  filter(YEAR == 2017, SITE == "IVEE")
+
+IVEE_2012 <- size_abun_case %>% 
+  filter(YEAR == 2012, SITE == "IVEE")
+
+#ftest to compare variances in lobster size at NAPL in 2012 and 2017 
+# null: Variances are equal (ratio is equal to 1)
+# alternative: Variances are not equal (ratio is not equal to 1)
+
+IVEE_ftest <- var.test(IVEE_2012$SIZE, IVEE_2017$SIZE)
+
+IVEE_ftest
+
+#ftest indicates that variances are equal (p =0.307). Use students t-test to compare sizes at NAPL in 2012 and 2017
+
+IVEE_ttest <- t.test(IVEE_2012$SIZE, IVEE_2017$SIZE, var.equal = TRUE)
+  
+IVEE_ttest
+
+#Our two sample t-test indicates that there is no significant difference in lobster size at Isla Vista (p=0.059) in 2012 (mean = 66.07) and 2017 (mean = 71.4) 
+
+
+#Site 5: CARP (Carpinteria)
+
+CARP_2017 <- size_abun_case %>% 
+  filter(YEAR == 2017, SITE == "CARP")
+
+CARP_2012 <- size_abun_case %>% 
+  filter(YEAR == 2012, SITE == "CARP")
+
+#ftest to compare variances in lobster size at NAPL in 2012 and 2017 
+# null: Variances are equal (ratio is equal to 1)
+# alternative: Variances are not equal (ratio is not equal to 1)
+
+CARP_ftest <- var.test(CARP_2012$SIZE, CARP_2017$SIZE)
+
+CARP_ftest
+
+#ftest indicates that variances are equal (p =0.204). Use students t-test to compare sizes at NAPL in 2012 and 2017
+
+CARP_ttest <- t.test(CARP_2012$SIZE, CARP_2017$SIZE, var.equal = TRUE)
+  
+CARP_ttest
+
+#Our two sample t-test indicates that there is no significant difference in lobster size at Isla Vista (p=0.182) in 2012 (mean = 74.35) and 2017 (mean = 72.29) 
+
 ```
 
 
