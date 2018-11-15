@@ -156,9 +156,6 @@ carapace_prop
 carapace_x2 <- chisq.test(minimum_carapace)
 carapace_x2
 ```
-```{r}
-
-```
-
+Proportion of carapaces below the legal limit differed significantly across 5 sites ($\chi^2$(`r carapace_x2$parameter`) =..., p < 0.001).
 
 
