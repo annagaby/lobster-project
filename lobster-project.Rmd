@@ -40,6 +40,16 @@ abundance_table <- size_abun_case %>%
   count(YEAR, SITE) %>% 
   spread(SITE, n)
 
+#summarized abundances 
+abundance_summary <- size_abundance %>% 
+  group_by(SITE, YEAR) %>% 
+  summarize(abundance = sum(COUNT))
+
+abundance_summary
+
+#Figure of graph 
+abundance_figure <- ggplot(abundance_summary, aes(x = YEAR, y = abundance)) +
+  geom_line(aes(color = SITE))
 
 abundance_table 
 
