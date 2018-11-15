@@ -126,7 +126,45 @@ At Isla Vista and Naples Reef, the two protected MPA sites (with zero fishing pr
 ```
 
 
+```{r}
+
+
+
+```
+
 
 ### 4. Proportions of “legal” lobsters at the 5 sites in 2017
 The legal minimum carapace size for lobster is 82.6 mm. What proportion of observed lobsters at each site are above the legal minimum? Does that proportion differ significantly across the 5 sites? 
+
+```{r}
+minimum_carapace <- mean_sizes %>% 
+  mutate( 
+    carapace = case_when(
+      SIZE > 82.6 ~ "Above",
+      SIZE < 82.6 ~ "Below"
+    )
+    ) %>% 
+  count(SITE, carapace) %>% 
+  spread(carapace, n) %>% 
+  select(-SITE)
+
+rownames(minimum_carapace) <- c("AQUE", "CARP","IVEE","MOHK","NAPL")
+minimum_carapace
+
+```
+```{r}
+# Actual proportions:
+
+carapace_prop <- prop.table(as.matrix(minimum_carapace), 1)
+carapace_prop
+
+# Chi-square test for independence
+carapace_x2 <- chisq.test(minimum_carapace)
+carapace_x2
+```
+```{r}
+
+```
+
+
 
