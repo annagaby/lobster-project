@@ -51,7 +51,7 @@ abundance_summary
 abundance_figure <- ggplot(abundance_summary, aes(x = YEAR, y = abundance)) +
   geom_line(aes(color = SITE))
 
-abundance_table 
+
 
 final_table_lobsters <- kable(abundance_table, col.names = c("Year", "Arroyo Quemado", "Carpinteria", "Isla Vista", "Mohawk Reef", "Naples Reef"), align = "c") %>% 
    kable_styling(bootstrap_options = "striped", full_width = F) %>% 
@@ -77,19 +77,13 @@ traps_case <- traps %>%
   group_by(SITE, YEAR) %>% 
   summarize(trap_count = sum(TRAPS))
 
-traps_table <-traps_case %>% # Kirby there are no columns for Isla Vista or Naples reef because the trap counts were 0 in the original traps datset. Need to add column in table/add data into graphs 
-  
-  spread(SITE, n)
+#figure of graph 
 
-traps_table
+traps_figure <- ggplot(traps_case, aes(x = YEAR, y = trap_count)) +
+  geom_line(aes(color = SITE))
 
-final_traps_table <- kable(traps_table, col.names = c("Year", "Arroyo Quemado", "Carpinteria", "Mohawk Reef"), align = "c") %>% 
-   kable_styling(bootstrap_options = "striped", full_width = F) %>% 
-  kable_styling(bootstrap_options = "hover") %>% 
-  column_spec(1, bold = T) %>% 
-  row_spec(0, bold = T, color = "black")
+traps_figure
 
-final_traps_table
 ```
 
 ### 2. Compare mean lobster size by site in 2017
