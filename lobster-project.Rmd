@@ -16,6 +16,7 @@ library(tidyverse)
 library(vcdExtra)
 library(car)
 library(onewaytests)
+library(kableExtra)
 
 size_abundance <- read_csv("lobster_size_abundance.csv")
 traps <- read_csv("lobster_traps.csv")
@@ -39,7 +40,15 @@ abundance_table <- size_abun_case %>%
   count(YEAR, SITE) %>% 
   spread(SITE, n)
 
-abundance_table
+abundance_table 
+
+final_table_lobsters <- kable(abundance_table, col.names = c("Year", "Arroyo Quemado", "Carpinteria", "Isla Vista", "Mohawk Reef", "Naples Reef"), align = "c") %>% 
+   kable_styling(bootstrap_options = "striped", full_width = F) %>% 
+  kable_styling(bootstrap_options = "hover") %>% 
+  column_spec(1, bold = T) %>% 
+  row_spec(0, bold = T, color = "black")
+
+final_table_lobsters
 
 #create table of trap buoy counts by site and year 
 
@@ -50,6 +59,13 @@ traps_table <-traps_case %>%
   count(YEAR, SITE) %>% 
   spread(SITE, n)
 
+traps_table
+
+final_traps_table <- kable(traps_table, col.names = c("Year", "Arroyo Quemado", "Carpinteria", "Isla Vista", "Mohawk Reef", "Naples Reef"), align = "c") %>% 
+   kable_styling(bootstrap_options = "striped", full_width = F) %>% 
+  kable_styling(bootstrap_options = "hover") %>% 
+  column_spec(1, bold = T) %>% 
+  row_spec(0, bold = T, color = "black")
   
 ```
 
@@ -76,11 +92,18 @@ lobster_variance <- leveneTest(SIZE ~ SITE, data = mean_sizes)
 lobster_variance
 
 #ANOVA test 
+
 #H0: There is no difference in mean lobster sizes across different sites
 #HA: At least two sites have significantly different means
 
 lobster_aov <- aov(SIZE ~SITE, data = mean_sizes)
 summary(lobster_aov)
+
+#Kruskal- Wallis test for non-parametic data
+
+#H0: There is no significant difference in mean lobster sizes across different sites
+#HA: At least two sites have signficantly different means
+
 
 # ANOVA eveals tht there are at least two means that are significantly different, therefore, we should run Tukey's HSD to explore further (post hoc test)
 
