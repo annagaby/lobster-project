@@ -47,9 +47,17 @@ abundance_summary <- size_abundance %>%
 
 abundance_summary
 
-#Figure of graph 
+#Figure of abundances
 abundance_figure <- ggplot(abundance_summary, aes(x = YEAR, y = abundance)) +
-  geom_line(aes(color = SITE))
+  geom_line(aes(color = SITE)) +
+  theme_classic()+
+  theme(axis.text.x=element_text(angle=90,hjust=1))+
+  labs(y = "Abundance of Lobsters", x= "Year") +
+  #geom_errorbar(aes(ymin=,ymax=), width=.2) +
+  theme(axis.text=element_text(size=11))+
+  theme(axis.title=element_text(size=12))+
+  scale_y_continuous(expand = c(0,0), limits = c(0,750))+
+  scale_x_continuous(expand = c(0,0), limits = c(2012,2017))
 
 abundance_table 
 
