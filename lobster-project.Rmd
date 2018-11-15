@@ -31,10 +31,23 @@ order of SITE. Note: you are not expected to use regression here - just think of
 size_abundance <- data.frame(size_abundance)
 size_abun_case <- expand.dft(size_abundance, freq = "COUNT")
 
+#create table of lobster abundance by site and year
+
 abundance_table <- size_abun_case %>% 
   count(YEAR, SITE) %>% 
   spread(SITE, n)
+
 abundance_table
+
+#create table of trap buoy counts by site and year 
+
+traps <- data.frame(traps)
+traps_case <- expand.dft(traps, freq = "TRAPS")
+
+traps_table <-traps_case %>% 
+  count(YEAR, SITE) %>% 
+  spread(SITE, n)
+
   
 ```
 
