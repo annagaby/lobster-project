@@ -14,6 +14,8 @@ knitr::opts_chunk$set(echo = TRUE)
 install.packages("vcdExtra")
 library(tidyverse)
 library(vcdExtra)
+library(car)
+library(onewaytests)
 
 size_abundance <- read_csv("lobster_size_abundance.csv")
 traps <- read_csv("lobster_traps.csv")
@@ -56,7 +58,38 @@ traps_table <-traps_case %>%
 Compare mean lobster sizes (carapace length (mm)) across the five sites for lobster observations collected in 2017. Warning: the size data are not in tidy format. There are rows that contain size information for multiple
 lobsters observed (e.g., if the researcher saw 3 lobsters all with carapace length ~ 60 mm, then they will have a single row where COUNT = 3 and SIZE = 60). You’ll want to get this into case format - where each lobster has its own row - before doing statistical analyses. There are many ways to do this. One hint: function expand.dft in the vcdExtra package (it doesn’t like tibbles, so you might need to coerce to data.frame first).
 ```{r}
+# Compare mean lobster sizes across sites 
 
+#Create dataframe with only 2017 observations to run ANOVA
+
+mean_sizes <- size_abun_case %>% 
+  filter(YEAR == 2017)
+
+
+#Use Levene's test for equal variances 
+
+#H0: Variances are equal
+#HA: Variances are not equal 
+
+lobster_variance <- leveneTest(SIZE ~ SITE, data = mean_sizes)
+
+lobster_variance
+
+#ANOVA test 
+#H0: There is no difference in mean lobster sizes across different sites
+#HA: At least two sites have significantly different means
+
+lobster_aov <- aov(SIZE ~SITE, data = mean_sizes)
+summary(lobster_aov)
+
+# ANOVA eveals tht there are at least two means that are significantly different, therefore, we should run Tukey's HSD to explore further (post hoc test)
+
+lobster_ph <- TukeyHSD(lobster_aov)
+
+lobster_ph
+
+
+# Mean lobster sizes differ significantly between NAPL and CARP, NAPL and IVEE, NAPL and MOHK (p < 0,05)   
 
 
 ```
