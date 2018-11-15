@@ -51,15 +51,24 @@ final_table_lobsters <- kable(abundance_table, col.names = c("Year", "Arroyo Que
 
 final_table_lobsters #finalized table
 
+
+  
+```
+
+
+
+```{r}
 #create table and graph of trap buoy counts by site and year 
 
 traps <- data.frame(traps)
 
-traps_case <- expand.dft(traps, freq = "TRAPS") %>%   
-  filter(SITE != "ABUR", SITE != "AHND", SITE != "AHND to AQUE", SITE != "GOLB")
+traps_case <- traps %>%   
+  filter(SITE != "ABUR", SITE != "AHND", SITE != "AHND to AQUE", SITE != "GOLB") %>% 
+  group_by(SITE, YEAR) %>% 
+  summarize(trap_count = sum(TRAPS))
 
 traps_table <-traps_case %>% # Kirby there are no columns for Isla Vista or Naples reef because the trap counts were 0 in the original traps datset. Need to add column in table/add data into graphs 
-  count(YEAR, SITE) %>% 
+  
   spread(SITE, n)
 
 traps_table
@@ -71,9 +80,7 @@ final_traps_table <- kable(traps_table, col.names = c("Year", "Arroyo Quemado", 
   row_spec(0, bold = T, color = "black")
 
 final_traps_table
-  
 ```
-
 
 ### 2. Compare mean lobster size by site in 2017
 Compare mean lobster sizes (carapace length (mm)) across the five sites for lobster observations collected in 2017. Warning: the size data are not in tidy format. There are rows that contain size information for multiple
