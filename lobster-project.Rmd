@@ -60,6 +60,7 @@ abundance_figure <- ggplot(abundance_summary, aes(x = YEAR, y = abundance)) +
   scale_y_continuous(expand = c(0,0), limits = c(0,750))+
   scale_x_continuous(expand = c(0,0), limits = c(2012,2017))
 
+abundance_figure
 
 final_table_lobsters <- kable(abundance_table, col.names = c("Year", "Arroyo Quemado", "Carpinteria", "Isla Vista", "Mohawk Reef", "Naples Reef"), align = "c") %>% 
    kable_styling(bootstrap_options = "striped", full_width = F) %>% 
@@ -73,7 +74,7 @@ final_table_lobsters #finalized table
   
 ```
 
-
+__Figure 1. Abundance of Lobsters in Santa Barbara Channel (2012-2016).__ Lobster counts measured at Long Term Ecological Research Sites (LTERS) in the Santa Barbara Channel: Arroyo Quemado (AQUE), Naples Reef (NAPL), Mohawk Reef (MOHK), Isla Vista (IVEE), Carpinteria (CARP) from 2012 to 2016. Error bars indicate ± 1 standard deviation. 
 
 ```{r}
 #create table and graph of trap buoy counts by site and year 
@@ -100,6 +101,10 @@ traps_figure <- ggplot(traps_case, aes(x = YEAR, y = trap_count)) +
 traps_figure
 
 ```
+
+__Figure 2. Fishing Pressure  in Santa Barbara Channel (2012-2016).__ Trap Buoy counts measured at Long Term Ecological Research Sites (LTERS) in the Santa Barbara Channel: Arroyo Quemado (AQUE), Naples Reef (NAPL), Mohawk Reef (MOHK), Isla Vista (IVEE), Carpinteria (CARP) from 2012 to 2016. Error bars indicate ± 1 standard deviation. No trap buoys were measured for Isla Vista or Naples Reef. 
+
+
 
 ### 2. Compare mean lobster size by site in 2017
 Compare mean lobster sizes (carapace length (mm)) across the five sites for lobster observations collected in 2017. Warning: the size data are not in tidy format. There are rows that contain size information for multiple
@@ -154,7 +159,7 @@ At Isla Vista and Naples Reef, the two protected MPA sites (with zero fishing pr
 #5 separate t-tests (unpaired) between 2012 and 2017 at each site. No t tests between sites. That will be in our analysis 
 
 
-#First look at the three non MPA sites######################
+########First look at the three non MPA sites######################
 
 #Site 1: AQUE (Arroyo Quemado)
 
@@ -278,7 +283,6 @@ NAPL_ttest <- t.test(NAPL_2012$SIZE, NAPL_2017$SIZE, var.equal = TRUE)
 NAPL_ttest
 
 #Our two sample t-test indicates that there is no significant difference in lobster size at Naples Reef (p=0.5002) in 2012 (mean = 73) and 2017 (mean = 76.23) 
-
 
 
 
