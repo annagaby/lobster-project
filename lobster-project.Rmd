@@ -146,6 +146,7 @@ lobster_ph
 # Mean lobster sizes differ significantly between Naples Reef (NAPL) and Carpinteria (CARP) (p = 0.023), Naples Reef (NAPL) and Isla Vista (IVEE) (0.004), Naples Reef (NAPL) and Mohawk Reef (MOHK) (p = 0.057).    
 
 
+
 ```
 
 
@@ -286,7 +287,7 @@ NAPL_ttest
 
 
 
-# The only location that differed signficantly in lobster size from 2012-2017 was Mohawk (p= 0.000067). Every other location had no significant difference in lobster sies from 2012-2017
+# The only location that differed signficantly in lobster size from 2012-2017 was Mohawk (p= 0.000067). Every other location had no significant difference in lobster sizes from 2012-2017
 
 ```
 
