@@ -18,6 +18,12 @@ library(car)
 library(onewaytests)
 library(kableExtra)
 library(effsize)
+library(extrafont) # Easier font changes
+#font_import()
+# loadfonts()
+
+library(FSA) # for dunnTest function
+library(ggsignif) # To add significance brackets
 
 size_abundance <- read_csv("lobster_size_abundance.csv")
 traps <- read_csv("lobster_traps.csv")
@@ -150,7 +156,31 @@ lobster_ph
 # Mean lobster sizes differ significantly between Naples Reef (NAPL) and Carpinteria (CARP) (p = 0.023), Naples Reef (NAPL) and Isla Vista (IVEE) (0.004), Naples Reef (NAPL) and Mohawk Reef (MOHK) (p = 0.057).     
 
 
+sizes_2017 <- size_abun_case %>% 
+  filter(YEAR == 2017) %>% 
+  group_by(SITE) %>% 
+  summarize(
+    mean_size=mean(SIZE),
+    sd_size = sd(SIZE)
+  )
 
+
+figure <- ggplot(sizes_2017, aes(x = SITE, y = mean_size)) +
+  geom_col(colour = NA, fill = "gray50", width = 0.5) +
+  geom_errorbar(aes(ymax = mean_size + sd_size, ymin = mean_size - sd_size), width = 0.1) +
+  scale_y_continuous(expand = c(0,0), limits = c(0,95)) +
+  labs(y= "Mean Lobster Carapase Size (mm)") +
+  scale_x_discrete(labels = c("AQUE","CARP","IVEE","MOHK", "NAPL")) +
+  xlab("\nLocation") +
+  annotate("text", x = 1, y = 88.5, label = "a,b", family = "Times New Roman") +
+  annotate("text", x = 2, y = 88, label = "a", family = "Times New Roman") +
+  annotate("text", x = 3, y = 88, label = "a", family = "Times New Roman") +
+  annotate("text", x = 4, y = 84, label = "a,b", family = "Times New Roman") +
+  annotate("text", x = 5, y = 90, label = "b", family = "Times New Roman") +
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        panel.background = element_blank(), axis.line = element_line(colour = "black"),text = element_text(family = "Times New Roman"))
+  
+  figure
 ```
 
 
