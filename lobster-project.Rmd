@@ -9,7 +9,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r, message=FALSE}
+```{r, include = FALSE}
 # Load packages and read .csv files
 #install.packages("vcdExtra")
 library(tidyverse)
@@ -29,7 +29,7 @@ traps <- read_csv("lobster_traps.csv")
 Describe trends in lobster abundance (counts) and fishing pressure (trap buoys) at the five locations from 2012 - 2017. Ignore transect information - we are only interested in evaluating abundance and pressure on the
 order of SITE. Note: you are not expected to use regression here - just think of ways to clearly describe annual totals visually and in text, noting important trends, events and differences.
 
-```{r}
+```{r, message = FALSE}
 # Transform data into case form
 
 size_abundance <- data.frame(size_abundance)
@@ -77,7 +77,8 @@ final_table_lobsters #finalized table
 
 __Figure 1. Abundance of Lobsters in Santa Barbara Channel (2012-2016).__ Lobster counts measured at Long Term Ecological Research Sites (LTERS) in the Santa Barbara Channel: Arroyo Quemado (AQUE), Naples Reef (NAPL), Mohawk Reef (MOHK), Isla Vista (IVEE), Carpinteria (CARP) from 2012 to 2016. Error bars indicate ± 1 standard deviation. 
 
-```{r}
+
+```{r, message = FALSE}
 #create table and graph of trap buoy counts by site and year 
 
 traps <- data.frame(traps)
@@ -103,9 +104,9 @@ traps_figure
 
 ```
 
-__Figure 2. Fishing Pressure  in Santa Barbara Channel (2012-2016).__ Trap Buoy counts measured at Long Term Ecological Research Sites (LTERS) in the Santa Barbara Channel: Arroyo Quemado (AQUE), Naples Reef (NAPL), Mohawk Reef (MOHK), Isla Vista (IVEE), Carpinteria (CARP) from 2012 to 2016. Error bars indicate ± 1 standard deviation. No trap buoys were measured for Isla Vista or Naples Reef. 
+__Figure 2. Fishing Pressure in Santa Barbara Channel (2012-2016).__ Trap Buoy counts measured at Long Term Ecological Research Sites (LTERS) in the Santa Barbara Channel: Arroyo Quemado (AQUE), Naples Reef (NAPL), Mohawk Reef (MOHK), Isla Vista (IVEE), Carpinteria (CARP) from 2012 to 2016. Error bars indicate ± 1 standard deviation. No trap buoys were measured for Isla Vista or Naples Reef. 
 
-
+While all five sites had higher lobster counts in 2017 than 2012, Isla Vista and Carpinteria both experienced a much larger increase in lobster abundance (figure 1). In 2017, Carpinteria had a recorded lobster count of 705, compared with 98 in 2012. In contrast, Arroyo Quemado had an increase of only 29 over the same time period. Figure 2 shows fishing pressure in the Santa Barbara Channel, measured by the number of trap buoys recorded at each site. As can be seen from the data, fishing pressure decreased at all sites between 2012 and 2017. (no trap buoys were recorded at the two MPA sites, Isla Vista and Naples Reef). The decrease in fishing pressure is a possible explanation for the increase in lobster counts in the Santa Barbara Channel between 2012 and 2017. Interestingly, lobster counts at the MPA sites both increased even though fishing pressure was not a factor. Lobster counts at Isla Vista, for example, increased by 580, meaning that there are likely other factors contributing to the increase in lobster abundance. 
 
 ### 2. Compare mean lobster size by site in 2017
 Compare mean lobster sizes (carapace length (mm)) across the five sites for lobster observations collected in 2017. Warning: the size data are not in tidy format. There are rows that contain size information for multiple
@@ -144,7 +145,7 @@ lobster_ph <- TukeyHSD(lobster_aov)
 lobster_ph
 
 
-# Mean lobster sizes differ significantly between Naples Reef (NAPL) and Carpinteria (CARP) (p = 0.023), Naples Reef (NAPL) and Isla Vista (IVEE) (0.004), Naples Reef (NAPL) and Mohawk Reef (MOHK) (p = 0.057).    
+# Mean lobster sizes differ significantly between Naples Reef (NAPL) and Carpinteria (CARP) (p = 0.023), Naples Reef (NAPL) and Isla Vista (IVEE) (0.004), Naples Reef (NAPL) and Mohawk Reef (MOHK) (p = 0.057).     
 
 
 
@@ -316,7 +317,7 @@ NAPL_ttest
 
 ```
 
-When analzying changes in lobster size, we found that there was no signficant difference in size between 2012 and 2017 at any of the sites except Mohawk Reef (t(259) = 4.06, p = 0.000063, $\alpha$ = 0.05). Effect size was medium (Cohen's d = 0.54) and the average size in 2012 was 77.25 mm, compared with 2017 at 72 mm, amking the absolute difference in means only 5.25 mm. Two of the five locations (Isla Vista and Naples Reef) are marine protected areas (MPAs), and the other three (Mohawk Reef, Arroyo Quemado, and Carpinteria) are not. Based on our results it appears that there is no relationship between marine protected areas and changes lobster sizes from 2012-2017.  
+When analzying changes in lobster size, we found that there was no signficant difference in size between 2012 and 2017 at any of the sites, with the exception of Mohawk Reef (t(259) = 4.06, p = 0.000063, $\alpha$ = 0.05). Effect size was medium (Cohen's d = 0.54) and the average size in 2012 was 77.25 mm, compared with 2017 at 72 mm, making the absolute difference in means only 5.25 mm. Two of the five locations (Isla Vista and Naples Reef) are marine protected areas (MPAs), and the other three (Mohawk Reef, Arroyo Quemado, and Carpinteria) are not. Based on our results it appears that there is no relationship between marine protected areas and changes in lobster sizes from 2012-2017.  
 
 ### 4. Proportions of “legal” lobsters at the 5 sites in 2017
 The legal minimum carapace size for lobster is 82.6 mm. What proportion of observed lobsters at each site are above the legal minimum? Does that proportion differ significantly across the 5 sites? 
@@ -349,6 +350,6 @@ carapace_x2 <- chisq.test(minimum_carapace)
 carapace_x2
 ```
 
-2017 proportions of lobster carapace sizes that were above the legal minimum of 82.6 mm differed signficantly by site (^x^2^(4)= 18.49, p = 0.0009, $\alpha$ = 0.05). At all sites, the majority of lobster carapace sizes are below the legal minimum. Mohawk Reef had the largest proportion of lobsters below the legal minimum (86%), while Naples Reef had the smallest (66%). This is consistent with our earlier findings that Naples Reef had the largest mean lobster size in 2017.  
+2017 proportions of lobster carapace sizes that were above the legal minimum of 82.6 mm differed signficantly by site (x^2^(4)= 18.49, p = 0.0009, $\alpha$ = 0.05). At all sites, the majority of lobster carapace sizes are below the legal minimum. Mohawk Reef had the largest proportion of lobsters below the legal minimum (86%), while Naples Reef had the smallest (66%). This is consistent with our earlier findings that Naples Reef had the largest mean lobster size in 2017. Because the majority of lobsters were smaller than the legal minimum catch size, we don't see a signficant increase in lobster size with decrease in fishing pressure from 2012 to 2017. However, Mohawk, the only location where size changed signficantly, has the largest proportion of smaller lobsters in 2017. As fishing pressure decreased in the channel, we would expect the size to increase, however, sizes actually decreased at Mohawk. 
 
 
