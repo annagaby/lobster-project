@@ -186,7 +186,7 @@ figure <- ggplot(sizes_2017, aes(x = SITE, y = mean_size)) +
   
   figure
 ```
-__Figure 3. Mean lobster sizes in the Santa Barbara Channel (2017).__ Mean lobster carapace sizes (mm) measured at Long Term Ecological Research Sites (LTERS) in the Santa Barbara Channel: Arroyo Quemado (AQUE), Naples Reef (NAPL), Mohawk Reef (MOHK), Isla Vista (IVEE), Carpinteria (CARP) in 2017. Error bars indicate ± 1 standard deviation. Like letters indicate values that do not differ significantly (by one-way ANOVA with Tukey’s HSD; F(4,2355) = 3.24, p = 0.008), α = 0.05 for all post-hoc pairwise comparisons)
+__Figure 3. Mean lobster sizes in the Santa Barbara Channel (2017).__ Mean lobster carapace sizes (mm) measured at Long Term Ecological Research Sites (LTERS) in the Santa Barbara Channel: Arroyo Quemado (AQUE), Naples Reef (NAPL), Mohawk Reef (MOHK), Isla Vista (IVEE), Carpinteria (CARP) in 2017. Error bars indicate ± 1 standard deviation. Like letters indicate values that do not differ significantly (by one-way ANOVA with Tukey’s HSD; F(4,2355) = 3.24, p = 0.008), α = 0.05 for all post-hoc pairwise comparisons) 
 
 
 Lobster sizes (mm) differed signficantly between sites in 2017 (one-way ANOVA,F(4,2355) = 3.24, p = 0.008). Post-hoc analysis by Tukey’s HSD revealed that of the five sites studied, lobster sizes Naples Reef (n = 112) differed significantly from lobster sizes at Carpinteria (n = 705) and Isla Vista (n = 606) [pairwise p < 0.05, $\alpha$ = 0.05]. Mean lobster size at Naples Reef was the largest at 76.23 mm, compared with the other locations, all of which had means between 71 and 73 mm. Arroyo Quemado, the only location that did not differ signficantly from any, had a mean size of 73.89 mm. 
