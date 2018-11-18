@@ -17,6 +17,7 @@ library(vcdExtra)
 library(car)
 library(onewaytests)
 library(kableExtra)
+library(effsize)
 
 size_abundance <- read_csv("lobster_size_abundance.csv")
 traps <- read_csv("lobster_traps.csv")
@@ -128,7 +129,7 @@ lobster_variance <- leveneTest(SIZE ~ SITE, data = mean_sizes)
 
 lobster_variance
 
-#Kruskal- Wallis test for non-parametic data, because variances are not equal
+#One way ANOVA for parametic data, because variances are not equal
 
 #H0: There is no significant difference in mean lobster sizes across different sites
 #HA: At least two sites have signficantly different means
@@ -152,6 +153,10 @@ lobster_ph
 ```
 
 
+Lobster sizes (mm) differed signficantly between sites in 2017 (one-way ANOVA,F(4,2355) = 3.24, p = 0.008). Post-hoc analysis by Tukey’s HSD revealed that of the five sites studied, lobster sizes Naples Reef (n = 112) differed significantly from lobster sizes at Carpinteria (n = 705), Isla Vista (n = 606) and Mohwak Reef (n = 178) [pairwise p < 0.05, $\alpha$ = 0.05]. Mean lobster size at Naples Reef was the largest at 76.23 mm, compared with the other locations, which all had means between 71 and 73 mm. Arroyo Quemado, the only location that did not differ signficantly from any, had a mean size of 73.89 mm. 
+
+
+
 ### 3. Changes in lobster size at MPA and non-MPA sites (comparing only 2012 and 2017 sizes)
 At Isla Vista and Naples Reef, the two protected MPA sites (with zero fishing pressure), how do lobster sizes in 2012 and 2017 compare? At the non-MPA sites?
 ```{r}
@@ -168,6 +173,7 @@ At Isla Vista and Naples Reef, the two protected MPA sites (with zero fishing pr
 
 AQUE_2017 <- size_abun_case %>% 
   filter(YEAR == 2017, SITE == "AQUE")
+mean(AQUE_2017$SIZE)
 
 AQUE_2012 <- size_abun_case %>% 
   filter(YEAR == 2012, SITE == "AQUE")
@@ -186,13 +192,15 @@ AQUE_ttest <- t.test(AQUE_2012$SIZE, AQUE_2017$SIZE, var.equal = TRUE)
   
 AQUE_ttest
 
-#####Our two sample t-test indicates that there is no significant difference in lobster size at Arroyo Quemado (p=0.209) in 2012 (mean = 71) and 2017 (mean = 73.89) ##################
+#Our two sample t-test indicates that there is no significant difference in lobster size at Arroyo Quemado (p=0.209) in 2012 (mean = 71) and 2017 (mean = 73.89) 
 
 
 #Site 2: MOHK (Mohawk Reef)
 
 MOHK_2017 <- size_abun_case %>% 
   filter(YEAR == 2017, SITE == "MOHK")
+
+mean(MOHK_2017$SIZE)
 
 MOHK_2012 <- size_abun_case %>% 
   filter(YEAR == 2012, SITE == "MOHK")
@@ -211,12 +219,22 @@ MOHK_ttest <- t.test(MOHK_2012$SIZE, MOHK_2017$SIZE, var.equal = TRUE)
   
 MOHK_ttest
 
-#################Our two sample t-test indicates that there is a significant difference in lobster size at Mohwak Reef (p=0.000067) in 2012 (mean = 77) and 2017 (mean = 72) #####################
+#Our two sample t-test indicates that there is a significant difference in lobster size at Mohwak Reef (p=0.000067) in 2012 (mean = 77) and 2017 (mean = 72) 
+
+# Test of effect size 
+
+effsize <- cohen.d(MOHK_2012$SIZE, MOHK_2017$SIZE)
+
+effsize
+
+# effect size was medium. 0.5408116 
 
 #Site 3: CARP (Carpinteria)
 
 CARP_2017 <- size_abun_case %>% 
   filter(YEAR == 2017, SITE == "CARP")
+
+mean(CARP_2017$SIZE)
 
 CARP_2012 <- size_abun_case %>% 
   filter(YEAR == 2012, SITE == "CARP")
@@ -235,14 +253,17 @@ CARP_ttest <- t.test(CARP_2012$SIZE, CARP_2017$SIZE, var.equal = TRUE)
   
 CARP_ttest
 
-####################Our two sample t-test indicates that there is no significant difference in lobster size at Isla Vista (p=0.182) in 2012 (mean = 74.35) and 2017 (mean = 72.29) ############
+#Our two sample t-test indicates that there is no significant difference in lobster size at Isla Vista (p=0.182) in 2012 (mean = 74.35) and 2017 (mean = 72.29) 
 
-# MPA sites######################
+
+#################MPA sites######################
 
 #Site 4: Isla Vista (IVEE) 
 
 IVEE_2017 <- size_abun_case %>% 
   filter(YEAR == 2017, SITE == "IVEE")
+
+mean(IVEE_2017$SIZE)
 
 IVEE_2012 <- size_abun_case %>% 
   filter(YEAR == 2012, SITE == "IVEE")
@@ -268,6 +289,8 @@ IVEE_ttest
 NAPL_2017 <- size_abun_case %>% 
   filter(YEAR == 2017, SITE == "NAPL")
 
+mean(NAPL_2017$SIZE)
+
 NAPL_2012 <- size_abun_case %>% 
   filter(YEAR == 2012, SITE == "NAPL")
 
@@ -277,12 +300,14 @@ NAPL_2012 <- size_abun_case %>%
 
 NAPL_ftest <- var.test(NAPL_2012$SIZE, NAPL_2017$SIZE)
 
+
 NAPL_ftest
 
 #ftest indicates that variances are equal (p =0.76). Use students t-test to compare sizes at NAPL in 2012 and 2017
 
 NAPL_ttest <- t.test(NAPL_2012$SIZE, NAPL_2017$SIZE, var.equal = TRUE)
-  
+ 
+ 
 NAPL_ttest
 
 #Our two sample t-test indicates that there is no significant difference in lobster size at Naples Reef (p=0.5002) in 2012 (mean = 73) and 2017 (mean = 76.23) 
@@ -293,6 +318,7 @@ NAPL_ttest
 
 ```
 
+When analzying changes in lobster size, we found that there was no signficant difference in size between 2012 and 2017 at any of the sites except Mohawk Reef (t(259) = 4.06, p = 0.000063, $\alpha$ = 0.05). Effect size was medium (Cohen's d = 0.54) and the average size in 2012 was 77.25 mm, compared with 2017 at 72 mm, amking the absolute difference in means only 5.25 mm. Two of the five locations (Isla Vista and Naples Reef) are marine protected areas (MPAs), and the other three (Mohawk Reef, Arroyo Quemado, and Carpinteria) are not. Based on our results it appears that there is no relationship between marine protected areas and changes lobster sizes from 2012-2017.  
 
 ### 4. Proportions of “legal” lobsters at the 5 sites in 2017
 The legal minimum carapace size for lobster is 82.6 mm. What proportion of observed lobsters at each site are above the legal minimum? Does that proportion differ significantly across the 5 sites? 
@@ -324,5 +350,7 @@ carapace_prop
 carapace_x2 <- chisq.test(minimum_carapace)
 carapace_x2
 ```
+
+2017 proportions of lobster carapace sizes that were above the legal minimum of 82.6 mm differed signficantly by site (^x^2^(4)= 18.49, p = 0.0009, $\alpha$ = 0.05). At all sites, the majority of lobster carapace sizes are below the legal minimum. Mohawk Reef had the largest proportion of lobsters below the legal minimum (86%), while Naples Reef had the smallest (66%). This is consistent with our earlier findings that Naples Reef had the largest mean lobster size in 2017.  
 
 
