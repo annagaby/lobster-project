@@ -55,14 +55,16 @@ abundance_figure <- ggplot(abundance_summary, aes(x = YEAR, y = abundance)) +
   theme_classic()+
   theme(axis.text.x=element_text(angle=90,hjust=1))+
   labs(y = "Abundance of Lobsters", x= "Year") +
-  #geom_errorbar(aes(ymin=,ymax=), width=.2) +
+  geom_errorbar(aes(ymin=abundance - sd ,ymax= abundance + sd ), width=.2) +
   theme(axis.text=element_text(size=11))+
   theme(axis.title=element_text(size=12))+
   scale_y_continuous(expand = c(0,0), limits = c(0,750))+
   scale_x_continuous(expand = c(0,0), limits = c(2012,2017))
+abundance_figure
 
 abundance_figure
 
+#Final table but not going to incorperate in final paper
 final_table_lobsters <- kable(abundance_table, col.names = c("Year", "Arroyo Quemado", "Carpinteria", "Isla Vista", "Mohawk Reef", "Naples Reef"), align = "c") %>% 
    kable_styling(bootstrap_options = "striped", full_width = F) %>% 
   kable_styling(bootstrap_options = "hover") %>% 
