@@ -152,7 +152,7 @@ lobster_ph
 ```
 
 
-Lobster sizes (mm) differed signficantly between sites in 2017 (one-way ANOVA,F(4,2355) = 3.24, p = 0.008). Post-hoc analysis by Tukey’s HSD revealed that of the five sites studied, lobster sizes Naples Reef (n = 112) differed significantly from lobster sizes at Carpinteria (n = 705), Isla Vista (n = 606) and Mohwak Reef (n = 178) [pairwise p < 0.05, $\alpha$ = 0.05]. Mean lobster size at Naples Reef was the largest at 76.23 mm, compared with the other locations, which all had means between 71 and 73 mm. Arroyo Quemado, the only location that did not differ signficantly from any, had a mean size of 73.89 mm. 
+Lobster sizes (mm) differed signficantly between sites in 2017 (one-way ANOVA,F(4,2355) = 3.24, p = 0.008). Post-hoc analysis by Tukey’s HSD revealed that of the five sites studied, lobster sizes Naples Reef (n = 112) differed significantly from lobster sizes at Carpinteria (n = 705), Isla Vista (n = 606) and Mohwak Reef (n = 178) [pairwise p < 0.05, $\alpha$ = 0.05]. Mean lobster size at Naples Reef was the largest at 76.23 mm, compared with the other locations, all of which had means between 71 and 73 mm. Arroyo Quemado, the only location that did not differ signficantly from any, had a mean size of 73.89 mm. 
 
 
 
