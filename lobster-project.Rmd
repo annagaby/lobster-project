@@ -55,7 +55,6 @@ abundance_summary
 #Figure of abundances
 abundance_figure <- ggplot(abundance_summary, aes(x = YEAR, y = abundance)) +
   geom_line(aes(linetype = SITE)) +
-  geom_point()+
   theme_classic()+
   theme(axis.text.x=element_text(angle=90,hjust=1))+
   labs(y = "Abundance of Lobsters", x= "Year") +
@@ -101,7 +100,6 @@ traps_case <- traps %>%
 
 traps_figure <- ggplot(traps_case, aes(x = YEAR, y = trap_count)) +
   geom_line(aes(linetype = SITE)) +
-  geom_point()+
   theme_classic() +
   theme(axis.text.x=element_text(angle=90,hjust=1)) +
   labs(y = "Trap Count", x= "Year") +
@@ -154,7 +152,6 @@ summary(lobster_aov)
 lobster_ph <- TukeyHSD(lobster_aov)
 
 lobster_ph
-
 
 
 # Mean lobster sizes differ significantly between Naples Reef (NAPL) and Carpinteria (CARP) (p = 0.023), Naples Reef (NAPL) and Isla Vista (IVEE) (0.004), Naples Reef (NAPL) and Mohawk Reef (MOHK) (p = 0.057).     
@@ -371,15 +368,6 @@ minimum_carapace <- mean_sizes %>%
 rownames(minimum_carapace) <- c("Arroyo Quemado", "Carpinteria","Isla Vista","Mohawk","Naples")
 minimum_carapace
 
-# Finalized table
-
-final_table_carapace <- kable(minimum_carapace, col.names = c("Legal (above 82.6 mm)", "Illegal (below 82.6 mm)"), align = "c") %>% 
-  kable_styling(bootstrap_options = "striped", full_width = F) %>% 
-  kable_styling(bootstrap_options = "hover") %>% 
-  column_spec(1, bold = T) %>% 
-  row_spec(0, bold = T, color = "black")
-
-final_table_carapace
 
 ```
 ```{r}
@@ -387,6 +375,32 @@ final_table_carapace
 
 carapace_prop <- prop.table(as.matrix(minimum_carapace), 1)
 carapace_prop
+
+# Finalized table
+
+finalized_minimum_carapace <- minimum_carapace %>% 
+  mutate(
+    n= rowSums(minimum_carapace),
+    SITE= c("Arroyo Quemado", "Carpinteria","Isla Vista","Mohawk","Naples")
+  )
+finalized_minimum_carapace
+
+
+finalized_carapace_prop <- data.frame(carapace_prop) %>% 
+  round(digits = 2) %>% 
+  mutate(
+    SITE= c("Arroyo Quemado", "Carpinteria","Isla Vista","Mohawk","Naples")
+  )
+finalized_carapace_prop
+
+
+final_table_carapace <- merge(finalized_minimum_carapace, finalized_carapace_prop, by = "SITE") %>% 
+  kable(col.names = c("Site", "\"Legal\" Lobsters", "\"No-Take\" Lobsters","Total Lobsters", "Proportion \"Legal\" Lobsters", "Proportion \"No take\" Lobsters"), align = "c") %>% 
+  kable_styling(bootstrap_options = "striped", full_width = F) %>% 
+  kable_styling(bootstrap_options = "hover") %>% 
+  column_spec(1, bold = T) %>% 
+  row_spec(0, bold = T, color = "black")
+final_table_carapace
 
 # Chi-square test for independence
 carapace_x2 <- chisq.test(minimum_carapace)
