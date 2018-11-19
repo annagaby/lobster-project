@@ -357,7 +357,14 @@ size_graph <- size_abun_case %>%
   select(YEAR, SITE, SIZE, sd_size, mean_size) %>% 
   ggplot(aes(x = SITE, y = SIZE))+
   geom_col(aes(fill=factor(YEAR)), position = "dodge") +
-   geom_errorbar(aes(ymax = mean_size + sd_size, ymin = mean_size - sd_size), width = 0.1)
+   geom_errorbar(aes(ymax = mean_size + sd_size, ymin = mean_size - sd_size), width = 0.1) +
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        panel.background = element_blank(), axis.line = element_line(colour = "black"),text = element_text(family = "Times New Roman")) +
+  scale_y_continuous(expand = c(0,0), limits = c(0,95)) +
+  labs(y= "Mean Lobster Carapase Size (mm)") +
+  scale_x_discrete(labels = c("Arroyo Quemado", "Carpinteria", "Isla Vista", "Mohawk Reef", "Naples Reef")) +
+  xlab("\nLocation") 
+
 size_graph
 
 ```
