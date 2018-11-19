@@ -55,6 +55,7 @@ abundance_summary
 #Figure of abundances
 abundance_figure <- ggplot(abundance_summary, aes(x = YEAR, y = abundance)) +
   geom_line(aes(linetype = SITE)) +
+  geom_point()+
   theme_classic()+
   theme(axis.text.x=element_text(angle=90,hjust=1))+
   labs(y = "Abundance of Lobsters", x= "Year") +
@@ -100,6 +101,7 @@ traps_case <- traps %>%
 
 traps_figure <- ggplot(traps_case, aes(x = YEAR, y = trap_count)) +
   geom_line(aes(linetype = SITE)) +
+  geom_point()+
   theme_classic() +
   theme(axis.text.x=element_text(angle=90,hjust=1)) +
   labs(y = "Trap Count", x= "Year") +
@@ -152,6 +154,7 @@ summary(lobster_aov)
 lobster_ph <- TukeyHSD(lobster_aov)
 
 lobster_ph
+
 
 
 # Mean lobster sizes differ significantly between Naples Reef (NAPL) and Carpinteria (CARP) (p = 0.023), Naples Reef (NAPL) and Isla Vista (IVEE) (0.004), Naples Reef (NAPL) and Mohawk Reef (MOHK) (p = 0.057).     
