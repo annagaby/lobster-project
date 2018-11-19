@@ -352,8 +352,8 @@ NAPL_ttest
 size_graph <- size_abun_case %>% 
   filter(YEAR == 2012| YEAR == 2017) %>% 
   ggplot(aes(x = SITE, y = SIZE))+
-  geom_col(aes(fill=YEAR), position = "dodge")
-
+  geom_col(aes(fill=factor(YEAR)), position = "dodge")
+size_graph
 
 ```
 
