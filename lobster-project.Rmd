@@ -306,6 +306,7 @@ IVEE_ftest <- var.test(IVEE_2012$SIZE, IVEE_2017$SIZE)
 
 IVEE_ftest
 
+
 #ftest indicates that variances are equal (p =0.307). Use students t-test to compare sizes at NAPL in 2012 and 2017
 
 IVEE_ttest <- t.test(IVEE_2012$SIZE, IVEE_2017$SIZE, var.equal = TRUE)
