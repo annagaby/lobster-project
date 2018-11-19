@@ -357,10 +357,10 @@ size_graph <- size_abun_case %>%
          mean_size = mean(SIZE)) %>% 
   select(YEAR, SITE, SIZE, sd_size, mean_size) %>% 
   ggplot(aes(x = SITE, y = mean_size, group = YEAR))+
-  geom_bar(stat = "identity", aes(fill=factor(YEAR)), position = position_dodge(width = 0.85)) +
-  scale_fill_manual(values = c("gray88", "gray50"),
+  geom_bar(stat = "identity", aes(fill=factor(YEAR)), position = position_dodge(width = 0.9)) +
+  scale_fill_manual(values = c("gray83", "gray50"),
                     name = "Year", labels = c("2012", "2017"))+
-  geom_errorbar(aes(ymax = mean_size + sd_size, ymin = mean_size - sd_size), width=.2, position = position_dodge(0.85)) +
+  geom_errorbar(aes(ymax = mean_size + sd_size, ymin = mean_size - sd_size), width=.2, position = position_dodge(0.9)) +
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_line(colour = "black"),text = element_text(family = "Times New Roman")) +
   scale_y_continuous(expand = c(0,0), limits = c(0,95)) +
