@@ -349,6 +349,14 @@ NAPL_ttest
 
 # The only location that differed signficantly in lobster size from 2012-2017 was Mohawk (p= 0.000067). Every other location had no significant difference in lobster sizes from 2012-2017
 
+
+
+size_graph <- size_abun_case %>% 
+  filter(YEAR == 2012| YEAR == 2017) %>% 
+  ggplot(aes(x = SITE, y = SIZE))+
+  geom_col(aes(fill=YEAR), position = "dodge")
+
+
 ```
 
 When analzying changes in lobster size, we found that there was no signficant difference in size between 2012 and 2017 at any of the sites, with the exception of Mohawk Reef (t(259) = 4.06, p = 0.000063, $\alpha$ = 0.05). Effect size was medium (Cohen's d = 0.54) and the average size in 2012 was 77.25 mm, compared with 2017 at 72 mm, making the absolute difference in means only 5.25 mm. Two of the five locations (Isla Vista and Naples Reef) are marine protected areas (MPAs), and the other three (Mohawk Reef, Arroyo Quemado, and Carpinteria) are not. Based on our results it appears that there is no relationship between marine protected areas and changes in lobster sizes from 2012-2017.  
