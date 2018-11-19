@@ -351,8 +351,13 @@ NAPL_ttest
 
 size_graph <- size_abun_case %>% 
   filter(YEAR == 2012| YEAR == 2017) %>% 
+  group_by(SITE, YEAR) %>% 
+  mutate(sd_size = sd(SIZE),
+         mean_size = mean(SIZE)) %>% 
+  select(YEAR, SITE, SIZE, sd_size, mean_size) %>% 
   ggplot(aes(x = SITE, y = SIZE))+
-  geom_col(aes(fill=factor(YEAR)), position = "dodge")
+  geom_col(aes(fill=factor(YEAR)), position = "dodge") +
+   geom_errorbar(aes(ymax = mean_size + sd_size, ymin = mean_size - sd_size), width = 0.1)
 size_graph
 
 ```
