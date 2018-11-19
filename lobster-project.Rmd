@@ -55,7 +55,6 @@ abundance_summary
 #Figure of abundances
 abundance_figure <- ggplot(abundance_summary, aes(x = YEAR, y = abundance)) +
   geom_line(aes(linetype = SITE)) +
-  geom_point()+
   theme_classic()+
   theme(axis.text.x=element_text(angle=90,hjust=1))+
   labs(y = "Abundance of Lobsters", x= "Year") +
@@ -101,7 +100,6 @@ traps_case <- traps %>%
 
 traps_figure <- ggplot(traps_case, aes(x = YEAR, y = trap_count)) +
   geom_line(aes(linetype = SITE)) +
-  geom_point()+
   theme_classic() +
   theme(axis.text.x=element_text(angle=90,hjust=1)) +
   labs(y = "Trap Count", x= "Year") +
@@ -154,7 +152,6 @@ summary(lobster_aov)
 lobster_ph <- TukeyHSD(lobster_aov)
 
 lobster_ph
-
 
 
 # Mean lobster sizes differ significantly between Naples Reef (NAPL) and Carpinteria (CARP) (p = 0.023), Naples Reef (NAPL) and Isla Vista (IVEE) (0.004), Naples Reef (NAPL) and Mohawk Reef (MOHK) (p = 0.057).     
@@ -363,6 +360,8 @@ When analzying changes in lobster size, we found that there was no signficant di
 
 
 ```{r, echo = FALSE}
+# Table for chi-square test
+
 minimum_carapace <- mean_sizes %>% 
   mutate( 
     carapace = case_when(
@@ -374,7 +373,7 @@ minimum_carapace <- mean_sizes %>%
   spread(carapace, n) %>% 
   select(-SITE)
 
-rownames(minimum_carapace) <- c("AQUE", "CARP","IVEE","MOHK","NAPL")
+rownames(minimum_carapace) <- c("Arroyo Quemado", "Carpinteria","Isla Vista","Mohawk","Naples")
 minimum_carapace
 
 
@@ -385,10 +384,40 @@ minimum_carapace
 carapace_prop <- prop.table(as.matrix(minimum_carapace), 1)
 carapace_prop
 
+# Finalized table
+
+finalized_minimum_carapace <- minimum_carapace %>% 
+  mutate(
+    n= rowSums(minimum_carapace),
+    SITE= c("Arroyo Quemado", "Carpinteria","Isla Vista","Mohawk","Naples")
+  )
+finalized_minimum_carapace
+
+
+finalized_carapace_prop <- data.frame(carapace_prop) %>% 
+  round(digits = 2) %>% 
+  mutate(
+    SITE= c("Arroyo Quemado", "Carpinteria","Isla Vista","Mohawk","Naples")
+  )
+finalized_carapace_prop
+
+
+final_table_carapace <- merge(finalized_minimum_carapace, finalized_carapace_prop, by = "SITE") %>% 
+  kable(col.names = c("Site", "\"Legal\" Lobsters", "\"No-Take\" Lobsters","Total Lobsters", "Proportion \"Legal\" Lobsters", "Proportion \"No take\" Lobsters"), align = "c") %>% 
+  kable_styling(bootstrap_options = "striped", full_width = F) %>% 
+  kable_styling(bootstrap_options = "hover") %>% 
+  column_spec(1, bold = T) %>% 
+  row_spec(0, bold = T, color = "black")
+final_table_carapace
+
 # Chi-square test for independence
 carapace_x2 <- chisq.test(minimum_carapace)
 carapace_x2
 ```
+<<<<<<< HEAD
+Proportion of carapaces below the legal limit differed significantly across 5 sites ($\chi^2$(`r carapace_x2$parameter`) =..., p < 0.001).
+=======
+>>>>>>> aa3dd4c14f9b20066e95a83464dd1a7b2b492f78
 
 2017 proportions of lobster carapace sizes that were above the legal minimum of 82.6 mm differed signficantly by site (x^2^(4)= 18.49, p = 0.0009, $\alpha$ = 0.05). At all sites, the majority of lobster carapace sizes were below the legal minimum. Mohawk Reef had the largest proportion of lobsters below the legal minimum (86%), while Naples Reef had the smallest (66%). This is consistent with our earlier findings that Naples Reef had the largest mean lobster size in 2017. Because the majority of lobsters were smaller than the legal minimum catch size, we don't see a signficant increase in lobster size with decrease in fishing pressure from 2012 to 2017. However, Mohawk, the only location where size changed signficantly, has the largest proportion of smaller lobsters in 2017. As fishing pressure decreased in the channel, we would expect the size to increase, however, sizes actually decreased at Mohawk. 
 
