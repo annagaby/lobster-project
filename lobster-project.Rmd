@@ -35,7 +35,7 @@ traps <- read_csv("lobster_traps.csv")
 Describe trends in lobster abundance (counts) and fishing pressure (trap buoys) at the five locations from 2012 - 2017. Ignore transect information - we are only interested in evaluating abundance and pressure on the
 order of SITE. Note: you are not expected to use regression here - just think of ways to clearly describe annual totals visually and in text, noting important trends, events and differences.
 
-```{r, message = FALSE}
+```{r, echo = FASLE}
 # Transform data into case form
 
 size_abundance <- data.frame(size_abundance)
@@ -86,10 +86,10 @@ final_table_lobsters #finalized table
   
 ```
 
-__Figure 1. Abundance of Lobsters in Santa Barbara Channel (2012-2017).__ Lobster counts measured at Long Term Ecological Research Sites (LTERS) in the Santa Barbara Channel: Arroyo Quemado (AQUE), Naples Reef (NAPL), Mohawk Reef (MOHK), Isla Vista (IVEE), Carpinteria (CARP) from 2012 to 2017. Error bars indicate ± 1 standard deviation. 
+__Figure 1. Abundance of Lobsters in Santa Barbara Channel (2012-2017).__ Lobster counts measured at Long Term Ecological Research Sites (LTERS) in the Santa Barbara Channel: Arroyo Quemado (AQUE), Naples Reef (NAPL), Mohawk Reef (MOHK), Isla Vista (IVEE), Carpinteria (CARP) from 2012 to 2017. 
 
 
-```{r, message = FALSE}
+```{r, echo = FALSE}
 #create table and graph of trap buoy counts by site and year 
 
 traps <- data.frame(traps)
@@ -118,14 +118,14 @@ traps_figure
 
 ```
 
-__Figure 2. Fishing Pressure in Santa Barbara Channel (2012-2017).__ Trap Buoy counts measured at Long Term Ecological Research Sites (LTERS) in the Santa Barbara Channel: Arroyo Quemado (AQUE), Naples Reef (NAPL), Mohawk Reef (MOHK), Isla Vista (IVEE), Carpinteria (CARP) from 2012 to 2017. Error bars indicate ± 1 standard deviation. No trap buoys were measured for Isla Vista or Naples Reef. 
+__Figure 2. Fishing Pressure in Santa Barbara Channel (2012-2017).__ Trap Buoy counts measured at Long Term Ecological Research Sites (LTERS) in the Santa Barbara Channel: Arroyo Quemado (AQUE), Naples Reef (NAPL), Mohawk Reef (MOHK), Isla Vista (IVEE), Carpinteria (CARP) from 2012 to 2017. No trap buoys were measured for Isla Vista or Naples Reef. 
 
 While all five sites had higher lobster counts in 2017 than 2012, Isla Vista and Carpinteria both experienced a much larger increase in lobster abundance (figure 1). In 2017, Carpinteria had a recorded lobster count of 705, compared with 98 in 2012. In contrast, Arroyo Quemado had an increase of only 29 over the same time period. Figure 2 shows fishing pressure in the Santa Barbara Channel, measured by the number of trap buoys recorded at each site. As can be seen from the data, fishing pressure decreased at all sites between 2012 and 2017. (no trap buoys were recorded at the two MPA sites, Isla Vista and Naples Reef). The decrease in fishing pressure is a possible explanation for the increase in lobster counts in the Santa Barbara Channel between 2012 and 2017. Interestingly, lobster counts at the MPA sites both increased even though fishing pressure was not a factor. Lobster counts at Isla Vista, for example, increased by 580, meaning that there are likely other factors contributing to the increase in lobster abundance. 
 
 ### 2. Compare mean lobster size by site in 2017
 Compare mean lobster sizes (carapace length (mm)) across the five sites for lobster observations collected in 2017. Warning: the size data are not in tidy format. There are rows that contain size information for multiple
 lobsters observed (e.g., if the researcher saw 3 lobsters all with carapace length ~ 60 mm, then they will have a single row where COUNT = 3 and SIZE = 60). You’ll want to get this into case format - where each lobster has its own row - before doing statistical analyses. There are many ways to do this. One hint: function expand.dft in the vcdExtra package (it doesn’t like tibbles, so you might need to coerce to data.frame first).
-```{r}
+```{r, echo = FALSE}
 # Compare mean lobster sizes across sites 
 
 #Create dataframe with only 2017 observations to run ANOVA
@@ -197,7 +197,7 @@ Lobster sizes (mm) differed signficantly between sites in 2017 (one-way ANOVA,F(
 
 ### 3. Changes in lobster size at MPA and non-MPA sites (comparing only 2012 and 2017 sizes)
 At Isla Vista and Naples Reef, the two protected MPA sites (with zero fishing pressure), how do lobster sizes in 2012 and 2017 compare? At the non-MPA sites?
-```{r}
+```{r, include = FALSE}
 
 #two years (2012 and 2017)
 #two managment levels 
@@ -361,7 +361,7 @@ When analzying changes in lobster size, we found that there was no signficant di
 ### 4. Proportions of “legal” lobsters at the 5 sites in 2017
 The legal minimum carapace size for lobster is 82.6 mm. What proportion of observed lobsters at each site are above the legal minimum? Does that proportion differ significantly across the 5 sites? 
 
-```{r}
+```{r, echo = FALSE}
 minimum_carapace <- mean_sizes %>% 
   mutate( 
     carapace = case_when(
