@@ -170,7 +170,7 @@ ANOVA_figure <- ggplot(sizes_2017, aes(x = SITE, y = mean_size)) +
   geom_col(colour = NA, fill = "gray50", width = 0.5) +
   geom_errorbar(aes(ymax = mean_size + sd_size, ymin = mean_size - sd_size), width = 0.1) +
   scale_y_continuous(expand = c(0,0), limits = c(0,95)) +
-  labs(y= "Mean Lobster Carapase Size (mm)") +
+  labs(y= "Mean Lobster Carapase Length (mm)") +
   scale_x_discrete(labels = c("Arroyo Quemado", "Carpinteria", "Isla Vista", "Mohawk Reef", "Naples Reef")) +
   xlab("\nLocation") +
   annotate("text", x = 1, y = 88.5, label = "a,b", family = "Times New Roman") +
@@ -350,22 +350,26 @@ NAPL_ttest
 
 
 size_graph <- size_abun_case %>% 
-  filter(YEAR == 2012| YEAR == 2017) %>% 
+  filter(YEAR == 2012| YEAR == 2017,
+         SIZE != -9999) %>% 
   group_by(SITE, YEAR, SITE) %>% 
   mutate(sd_size = sd(SIZE),
          mean_size = mean(SIZE)) %>% 
   select(YEAR, SITE, SIZE, sd_size, mean_size) %>% 
-  ggplot(aes(x = SITE, y = SIZE))+
-  geom_col(aes(fill=factor(YEAR)), position = "dodge") +
-  geom_errorbar(aes(ymax = mean_size + sd_size, ymin = mean_size - sd_size), width=.1, position = position_dodge(0.85)) +
+  ggplot(aes(x = SITE, y = mean_size, group = YEAR))+
+  geom_bar(stat = "identity", aes(fill=factor(YEAR)), position = position_dodge(width = 0.85)) +
+  scale_fill_manual(values = c("gray88", "gray50"),
+                    name = "Year", labels = c("2012", "2017"))+
+  geom_errorbar(aes(ymax = mean_size + sd_size, ymin = mean_size - sd_size), width=.2, position = position_dodge(0.85)) +
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_line(colour = "black"),text = element_text(family = "Times New Roman")) +
   scale_y_continuous(expand = c(0,0), limits = c(0,95)) +
-  labs(y= "Mean Lobster Carapase Size (mm)") +
+  labs(y= "Mean Lobster Carapase Length (mm)") +
   scale_x_discrete(labels = c("Arroyo Quemado", "Carpinteria", "Isla Vista", "Mohawk Reef", "Naples Reef")) +
   xlab("\nLocation") 
 
 size_graph
+
 
 ```
 
